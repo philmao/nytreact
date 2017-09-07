@@ -5,55 +5,50 @@ class SearchForm extends Component {
   constructor() {
     super();
     this.state = {
-      inputValue: "",
-      startDate: "",
-      endDate: ""
+      topic: "",
+      startYear: "",
+      endYear: ""
     };
     // Binding handleInputChange and handleButtonClick since we'll be passing them as
     // callbacks and 'this' will change otherwise
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
+
+  searchArticles = query => {
+    API.search(query)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+  };
+
   handleInputChange(event) {
-    this.setState({ inputValue: event.target.value });
-  }
-  handleButtonClick() {
-    const newQuote = this.state.inputValue;
-    API.saveQuote(newQuote).then(this.props.getQuotes);
-    this.setState({ inputValue: "" });
-  }
-  submit(e) {
-      var self
+    // Getting the value and name of the input which triggered the change
+    const value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit(event) {
       
-      e.preventDefault()
-      self = this
+      event.preventDefault()
 
       console.log(this.state);
 
-      var data = {
-        topic: this.state.topic,
-        startYear: this.state.startYear,
-        endYear: this.state.endYear
-      }
+      var query = "&q=" + this.state.topic;
+      query += "&begin_date=" + this.state.startYear + "0101";
+      query += "&end_date=" + this.state.endYear + "1231";
+      console.log(query);
 
-      var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-      url += '?' + $.param({
-        'api-key': "b9f91d369ff59547cd47b931d8cbc56b:0:74623931",
-        'q': "trump",
-        'begin_date': "20170801",
-        'end_date': "20170901"
-      })
-      // Submit form via jQuery/AJAX
-      $.ajax({
-        url: url,
-        method: 'GET',
-      }).done(function(result) {
-        console.log(result);
-      }).fail(function(err) {
-        throw err;
-      });
+      this.searchArticles(query);
 
-  }
+  };
+
   render() {
     return (
       <div className="container">
@@ -67,22 +62,43 @@ class SearchForm extends Component {
                 <form role="form" onSubmit={this.submit}>
 
                   <div className="form-group">
-                    <label for="search">Topic:</label>
-                    <input type="text" className="form-control" id="topic" />
+                    <label htmlFor="search">Topic:</label>
+                    <input 
+                      value={this.state.topic}
+                      name="topic"
+                      onChange={this.handleInputChange}
+                      type="text" 
+                      className="form-control" 
+                      id="topic" 
+                  />
                   </div>
 
                   <div className="form-group">
-                    <label for="start-year">Start Year:</label>
-                    <input type="text" className="form-control" id="startYear" />
+                    <label htmlFor="start-year">Start Year:</label>
+                    <input 
+                      value={this.state.startYear}
+                      name="startYear"
+                      onChange={this.handleInputChange}
+                      type="text" 
+                      className="form-control" 
+                      id="startYear" 
+                    />
                   </div>
 
                   <div className="form-group">
-                    <label for="end-year">End Year:</label>
-                    <input type="text" className="form-control" id="endYear" />
+                    <label htmlFor="end-year">End Year:</label>
+                    <input 
+                      value={this.state.endYear}
+                      name="endYear"
+                      onChange={this.handleInputChange}
+                      type="text" 
+                      className="form-control" 
+                      id="endYear" 
+                    />
                   </div>
 
                   <button
-                    onClick={this.handleButtonClick}
+                    onClick={this.handleFormSubmit}
                     className="btn btn-default"
                     style={styles.buttonStyle}
                   >

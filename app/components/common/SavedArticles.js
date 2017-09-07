@@ -10,16 +10,16 @@ class SavedArticles extends Component {
     // Binding handleInputChange and handleButtonClick since we'll be passing them as
     // callbacks and 'this' will change otherwise
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleButtonClick = this.handleButtonClick.bind(this);
+    // this.handleButtonClick = this.handleButtonClick.bind(this);
   }
   handleInputChange(event) {
     this.setState({ inputValue: event.target.value });
   }
-  handleButtonClick() {
-    const newQuote = this.state.inputValue;
-    API.saveQuote(newQuote).then(this.props.getQuotes);
-    this.setState({ inputValue: "" });
-  }
+  // handleButtonClick() {
+  //   const newQuote = this.state.inputValue;
+  //   API.saveQuote(newQuote).then(this.props.getQuotes);
+  //   this.setState({ inputValue: "" });
+  // }
   render() {
     return (
       <div className="container">
