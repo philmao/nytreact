@@ -1,6 +1,10 @@
 {
   "name": "nytreact",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.11.1",
+    "yarn": "0.27.5"
+  },
   "description": "New York Times Article Search application using React",
   "main": "server.js",
   "scripts": {

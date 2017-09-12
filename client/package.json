@@ -1,6 +1,10 @@
 {
   "name": "client",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.11.1",
+    "yarn": "0.27.5"
+  },
   "description": "New York Times Article Search react app",
   "main": "app.js",
   "author": "",
