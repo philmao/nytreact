@@ -10,9 +10,9 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
-  // date is required
+  // date is a required string
   date: {
-    type: Date,
+    type: String,
     required: true
   },
   // url is a required string

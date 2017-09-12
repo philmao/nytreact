@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import Panel from "../common/Panel";
 import API from "../../utils/API";
 
 class SearchForm extends Component {
@@ -7,18 +9,24 @@ class SearchForm extends Component {
     this.state = {
       topic: "",
       startYear: "",
-      endYear: ""
+      endYear: "",
+      results: {}
     };
     // Binding handleInputChange and handleButtonClick since we'll be passing them as
     // callbacks and 'this' will change otherwise
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleSaveArticle = this.handleSaveArticle.bind(this);
   }
 
   searchArticles = query => {
     API.search(query)
       .then(res => {
-        console.log(res);
+        console.log(res.data.response.docs);
+        this.setState({ results: res.data.response.docs });
+        console.log(this.state.results[0].headline.print_headline);
+        console.log(this.state.results[0].pub_date);
+        console.log(this.state.results[0].web_url);
       })
       .catch(err => console.log(err));
   };
@@ -49,6 +57,17 @@ class SearchForm extends Component {
 
   };
 
+  handleSaveArticle(event) {
+    // Getting the value and name of the input which triggered the change
+    // const value = event.target.value;
+    // const name = event.target.name;
+
+    // Updating the input's state
+    // this.setState({
+    //   [name]: value
+    // });
+  };
+
   render() {
     return (
       <div className="container">
@@ -59,7 +78,7 @@ class SearchForm extends Component {
                 <h3 className="panel-title"><strong><i className="fa fa-list-alt"></i>    Search</strong></h3>
               </div>
               <div className="panel-body">
-                <form role="form" onSubmit={this.submit}>
+                <form role="form">
 
                   <div className="form-group">
                     <label htmlFor="search">Topic:</label>
@@ -116,6 +135,13 @@ class SearchForm extends Component {
                 <h3 className="panel-title"><strong><i className="fa fa-list-alt"></i>    Results</strong></h3>
               </div>
               <div className="panel-body">
+                {this.state.results[0]
+                    ? <Panel
+                      title={this.state.results[0].headline.print_headline}
+                      date-date={this.state.results[0].pub_date}
+                      data-url={this.state.results[0].web_url}
+                      />
+                    : <h3>No Results to Display</h3>}
               </div>
             </div>
           </div>

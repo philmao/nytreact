@@ -9,9 +9,12 @@ var routes = require("./routes/routes");
 var PORT = process.env.PORT || 3000;
 mongoose.Promise = bluebird;
 var app = express();
+
+// Serve static files from the React app
+app.use(express.static(__dirname + 'client/public'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + "/public"));
 app.use("/", routes);
 
 // var db = process.env.MONGODB_URI || "mongodb://localhost/nytreact";

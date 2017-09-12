@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
+import ReactDOM from "react-dom";
 
 const Jumbotron = () => (
   <div className="header header-filter nyt-header">

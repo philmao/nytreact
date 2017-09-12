@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import API from "../../utils/API";
 
 class SavedArticles extends Component {
