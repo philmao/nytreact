@@ -8,7 +8,6 @@
   "description": "New York Times Article Search application using React",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
   },
@@ -28,5 +27,6 @@
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "mongoose": "^4.11.11"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }
