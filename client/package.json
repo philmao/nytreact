@@ -1,15 +1,12 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "engines": {
-    "node": "6.11.1",
-    "yarn": "1.0.2"
-  },
   "description": "New York Times Article Search react app",
   "main": "app.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router": "^2.4.1",
